@@ -7,28 +7,55 @@
 
 import SwiftUI
 
+enum HealthMetricContext: String, CaseIterable, Identifiable {
+    case steps, weight
+    var id: Self { self }
+    
+    var tint: Color {
+        switch self {
+        case .steps:
+            Color.pink
+        case .weight:
+            Color.indigo
+        }
+    }
+}
+
+
 struct ContentView: View {
+    
+    @State private var selectedStat: HealthMetricContext = .steps
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    VStack {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Label("Steps", systemImage: "figure.walk")
-                                    .font(.title3.bold())
-                                    .foregroundStyle(.purple)
-                                
-                                Text("Avg: 10K steps")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.secondary)
+                    
+                    Picker("Selected Stat", selection: $selectedStat) {
+                        ForEach(HealthMetricContext.allCases) { metric in
+                            Text(metric.rawValue.capitalized)
                         }
+                    }
+                    .pickerStyle(.segmented)
+                    
+                    VStack {
+                        NavigationLink(value: selectedStat) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Label("Steps", systemImage: "figure.walk")
+                                        .font(.title3.bold())
+                                        .foregroundStyle(.pink)
+                                    
+                                    Text("Avg: 10K steps")
+                                        .font(.caption)
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                            }
+                        }
+                        .foregroundStyle(.secondary)
                         .padding(.bottom, 12)
                         
                         RoundedRectangle(cornerRadius: 12)
@@ -42,7 +69,7 @@ struct ContentView: View {
                         VStack(alignment: .leading) {
                             Label("Averages", systemImage: "calendar")
                                 .font(.title3.bold())
-                                .foregroundStyle(.purple)
+                                .foregroundStyle(.pink)
                             
                             Text("Last 28 days")
                                 .font(.caption)
@@ -60,7 +87,11 @@ struct ContentView: View {
             }
             .padding()
             .navigationTitle("Dashboard")
+            .navigationDestination(for: HealthMetricContext.self) { metric in
+                Text(metric.rawValue.capitalized)
+            }
         }
+        .tint(selectedStat.tint)
     }
 }
 
