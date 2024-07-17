@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  DashboardView.swift
 //  HealthLens
 //
 //  Created by Nhi Ngo on 7/16/24.
@@ -22,7 +22,7 @@ enum HealthMetricContext: String, CaseIterable, Identifiable {
 }
 
 
-struct ContentView: View {
+struct DashboardView: View {
     
     @State private var selectedStat: HealthMetricContext = .steps
     
@@ -88,7 +88,7 @@ struct ContentView: View {
             .padding()
             .navigationTitle("Dashboard")
             .navigationDestination(for: HealthMetricContext.self) { metric in
-                Text(metric.rawValue.capitalized)
+                HealthDataListView(metric: metric)
             }
         }
         .tint(selectedStat.tint)
@@ -96,5 +96,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    DashboardView()
 }

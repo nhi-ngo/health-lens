@@ -8,18 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		37B5D6A32C46E5EE0029767F /* HealthLensApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */; };
-		37B5D6A52C46E5EE0029767F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6A42C46E5EE0029767F /* ContentView.swift */; };
+		37B5D6A52C46E5EE0029767F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6A42C46E5EE0029767F /* DashboardView.swift */; };
 		37B5D6A72C46E5F10029767F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B5D6A62C46E5F10029767F /* Assets.xcassets */; };
 		37B5D6AB2C46E5F10029767F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B5D6AA2C46E5F10029767F /* Preview Assets.xcassets */; };
+		37B5D6B22C48427E0029767F /* HealthDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6B12C48427E0029767F /* HealthDataListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		37B5D69F2C46E5EE0029767F /* HealthLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthLensApp.swift; sourceTree = "<group>"; };
-		37B5D6A42C46E5EE0029767F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		37B5D6A42C46E5EE0029767F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		37B5D6A62C46E5F10029767F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37B5D6A82C46E5F10029767F /* HealthLens.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HealthLens.entitlements; sourceTree = "<group>"; };
 		37B5D6AA2C46E5F10029767F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		37B5D6B12C48427E0029767F /* HealthDataListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +55,8 @@
 			isa = PBXGroup;
 			children = (
 				37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */,
-				37B5D6A42C46E5EE0029767F /* ContentView.swift */,
+				37B5D6A42C46E5EE0029767F /* DashboardView.swift */,
+				37B5D6B12C48427E0029767F /* HealthDataListView.swift */,
 				37B5D6A62C46E5F10029767F /* Assets.xcassets */,
 				37B5D6A82C46E5F10029767F /* HealthLens.entitlements */,
 				37B5D6A92C46E5F10029767F /* Preview Content */,
@@ -139,7 +142,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37B5D6A52C46E5EE0029767F /* ContentView.swift in Sources */,
+				37B5D6B22C48427E0029767F /* HealthDataListView.swift in Sources */,
+				37B5D6A52C46E5EE0029767F /* DashboardView.swift in Sources */,
 				37B5D6A32C46E5EE0029767F /* HealthLensApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
