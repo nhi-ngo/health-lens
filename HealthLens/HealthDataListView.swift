@@ -17,11 +17,18 @@ struct HealthDataListView: View {
     
     var body: some View {
         List(0..<28) { i in
-            HStack {
-                Text(Date(), format: .dateTime.month().day().year())
-                Spacer()
+//            HStack {
+//                Text(Date(), format: .dateTime.month().day().year())
+//                Spacer()
+//                Text(10000, format: .number.precision(.fractionLength(metric == .steps ? 0 : 1)))
+//            }
+            LabeledContent {
                 Text(10000, format: .number.precision(.fractionLength(metric == .steps ? 0 : 1)))
+                    .foregroundStyle(.primary)
+            } label: {
+                Text(Date(), format: .dateTime.month().day().year())
             }
+
         }
         .navigationTitle(metric.rawValue.capitalized)
         .sheet(isPresented: $isShowingAddData) {
@@ -38,10 +45,10 @@ struct HealthDataListView: View {
         NavigationStack {
             Form {
                 DatePicker("Date", selection: $addDataDate, displayedComponents: .date)
-                HStack {
-                    Text(metric.rawValue.capitalized)
+                LabeledContent(metric.rawValue.capitalized) {
                     TextField("Value", text: $valueToAdd)
                         .multilineTextAlignment(.trailing)
+                        .frame(width: 50)
                         .keyboardType(metric == .steps ? .numberPad : .decimalPad)
                 }
             }
