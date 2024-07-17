@@ -10,6 +10,8 @@ import SwiftUI
 struct HealthDataListView: View {
     
     @State private var isShowingAddData = false
+    @State private var addDataDate: Date = .now
+    @State private var valueToAdd: String = ""
     
     var metric: HealthMetricContext
     
@@ -23,7 +25,7 @@ struct HealthDataListView: View {
         }
         .navigationTitle(metric.rawValue.capitalized)
         .sheet(isPresented: $isShowingAddData) {
-            Text("Add data sheet")
+            addDataView
         }
         .toolbar {
             Button("Add data", systemImage: "plus") {
@@ -31,10 +33,37 @@ struct HealthDataListView: View {
             }
         }
     }
+    
+    var addDataView: some View {
+        NavigationStack {
+            Form {
+                DatePicker("Date", selection: $addDataDate, displayedComponents: .date)
+                HStack {
+                    Text(metric.rawValue.capitalized)
+                    TextField("Value", text: $valueToAdd)
+                        .multilineTextAlignment(.trailing)
+                        .keyboardType(metric == .steps ? .numberPad : .decimalPad)
+                }
+            }
+            .navigationTitle(metric.rawValue.capitalized)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Dismiss") {
+                        isShowingAddData = false
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Add Data") {
+                        
+                    }
+                }
+            }
+        }
+    }
 }
 
 #Preview {
     NavigationStack {
-        HealthDataListView(metric: .steps)
+        HealthDataListView(metric: .weight)
     }
 }
