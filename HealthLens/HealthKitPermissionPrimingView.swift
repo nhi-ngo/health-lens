@@ -44,7 +44,6 @@ struct HealthKitPermissionPrimingView: View {
             .tint(.pink)
         }
         .padding(30)
-        .interactiveDismissDisabled() // prevent users from swiping the sheet, force them to take action
         .onAppear { hasSeen = true }
         .healthDataAccessRequest(store: hkManager.store,
                                  shareTypes: hkManager.types,
