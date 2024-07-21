@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 enum HealthMetricContext: String, CaseIterable, Identifiable {
     case steps, weight
@@ -61,9 +62,13 @@ struct DashboardView: View {
                         .foregroundStyle(.secondary)
                         .padding(.bottom, 12)
                         
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundStyle(.secondary)
-                            .frame(height: 150)
+                        Chart {
+                            ForEach(hkManager.stepData) { step in
+                                BarMark(x: .value("Date", step.date, unit: .day),
+                                        y: .value("Count", step.value)
+                                )                            }
+                        }
+                        .frame(height: 150)
                     }
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
@@ -80,9 +85,13 @@ struct DashboardView: View {
                         }
                         .padding(.bottom, 12)
                         
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundStyle(.secondary)
-                            .frame(height: 240)
+                        Chart {
+                            ForEach(hkManager.weightData) { weight in
+                                BarMark(x: .value("Date", weight.date, unit: .day),
+                                        y: .value("Count", weight.value)
+                                )                            }
+                        }
+                        .frame(height: 150)
                     }
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
@@ -90,7 +99,8 @@ struct DashboardView: View {
             }
             .padding()
             .task {
-//                await hkManager.fetchStepCount()
+                await hkManager.fetchStepCount()
+//                await hkManager.fetchWeights()
                 isShowingPermissionPrimingSheet = !hasSeenPermissionPriming
             }
             .navigationTitle("Dashboard")

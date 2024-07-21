@@ -14,6 +14,7 @@
 		37B5D6B22C48427E0029767F /* HealthDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6B12C48427E0029767F /* HealthDataListView.swift */; };
 		37B5D6B42C495D9E0029767F /* HealthKitPermissionPrimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6B32C495D9E0029767F /* HealthKitPermissionPrimingView.swift */; };
 		37B5D6B62C496CE40029767F /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6B52C496CE40029767F /* HealthKitManager.swift */; };
+		37DA536D2C4C90DF00BEBF43 /* HealthMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DA536C2C4C90DE00BEBF43 /* HealthMetric.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		37B5D6B12C48427E0029767F /* HealthDataListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataListView.swift; sourceTree = "<group>"; };
 		37B5D6B32C495D9E0029767F /* HealthKitPermissionPrimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionPrimingView.swift; sourceTree = "<group>"; };
 		37B5D6B52C496CE40029767F /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		37DA536C2C4C90DE00BEBF43 /* HealthMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMetric.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */,
 				37B5D6A42C46E5EE0029767F /* DashboardView.swift */,
+				37DA536C2C4C90DE00BEBF43 /* HealthMetric.swift */,
 				37B5D6B12C48427E0029767F /* HealthDataListView.swift */,
 				37B5D6B32C495D9E0029767F /* HealthKitPermissionPrimingView.swift */,
 				37B5D6B52C496CE40029767F /* HealthKitManager.swift */,
@@ -153,6 +156,7 @@
 				37B5D6A32C46E5EE0029767F /* HealthLensApp.swift in Sources */,
 				37B5D6B62C496CE40029767F /* HealthKitManager.swift in Sources */,
 				37B5D6B42C495D9E0029767F /* HealthKitPermissionPrimingView.swift in Sources */,
+				37DA536D2C4C90DF00BEBF43 /* HealthMetric.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
