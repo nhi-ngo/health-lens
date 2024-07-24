@@ -32,15 +32,19 @@ import Observation
             intervalComponents: .init(day: 1)
         )
         
-        let stepCounts = try! await stepsQuery.result(for: store)
-        stepData = stepCounts.statistics().map {
-            .init(date: $0.startDate, value: $0.sumQuantity()?.doubleValue(for: .count()) ?? 0)
+        do {
+            let stepCounts = try await stepsQuery.result(for: store)
+            stepData = stepCounts.statistics().map {
+                .init(date: $0.startDate, value: $0.sumQuantity()?.doubleValue(for: .count()) ?? 0)
+            }
+        } catch {
+            
         }
         
         /*
-        for step in stepCounts.statistics() {
-            print(step.sumQuantity() ?? 0)
-        }
+         for step in stepCounts.statistics() {
+         print(step.sumQuantity() ?? 0)
+         }
          */
     }
     
@@ -59,38 +63,47 @@ import Observation
             intervalComponents: .init(day: 1)
         )
         
-        let weights = try! await weightsQuery.result(for: store)
-        weightData = weights.statistics().map {
-            .init(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
+        do {
+            let weights = try await weightsQuery.result(for: store)
+            weightData = weights.statistics().map {
+                .init(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
+            }
+        } catch {
+            
         }
         
         /*
-        for weight in weights.statistics() {
-            print(weight.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
-        }
+         for weight in weights.statistics() {
+         print(weight.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
+         }
          */
     }
     
     /*
-        func addSimulatorData() async {
-            var mockSamples: [HKQuantitySample] = []
-    
-            for i in 0..<28 {
-                let stepQuantity = HKQuantity(unit: .count(), doubleValue: .random(in: 4_000...20_000))
-                let weightQuantity = HKQuantity(unit: .pound(), doubleValue: .random(in: (160 + Double(i/3)...165 + Double(i/3))))
-    
-                let startDate = Calendar.current.date(byAdding: .day, value: -i, to: .now)! // go backward last 28 days
-                let endDate = Calendar.current.date(byAdding: .second, value: 1, to: startDate)!
-    
-                let stepSample = HKQuantitySample(type: HKQuantityType(.stepCount), quantity: stepQuantity, start: startDate, end: endDate)
-                let weightSample = HKQuantitySample(type: HKQuantityType(.bodyMass), quantity: weightQuantity, start: startDate, end: endDate)
-    
-                mockSamples.append(stepSample)
-                mockSamples.append(weightSample)
-            }
-    
-            try! await store.save(mockSamples)
-            print("✅ Dummy data sent up")
+    func addSimulatorData() async {
+        var mockSamples: [HKQuantitySample] = []
+        
+        for i in 0..<28 {
+            let stepQuantity = HKQuantity(unit: .count(), doubleValue: .random(in: 4_000...20_000))
+            let weightQuantity = HKQuantity(unit: .pound(), doubleValue: .random(in: (160 + Double(i/3)...165 + Double(i/3))))
+            
+            let startDate = Calendar.current.date(byAdding: .day, value: -i, to: .now)! // go backward last 28 days
+            let endDate = Calendar.current.date(byAdding: .second, value: 1, to: startDate)!
+            
+            let stepSample = HKQuantitySample(type: HKQuantityType(.stepCount), quantity: stepQuantity, start: startDate, end: endDate)
+            let weightSample = HKQuantitySample(type: HKQuantityType(.bodyMass), quantity: weightQuantity, start: startDate, end: endDate)
+            
+            mockSamples.append(stepSample)
+            mockSamples.append(weightSample)
         }
-     */
+        
+        do {
+            try await store.save(mockSamples)
+            print("✅ Dummy data sent up")
+            
+        } catch {
+            
+        }
+    }
+    */
 }
