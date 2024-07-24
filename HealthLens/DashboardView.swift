@@ -34,8 +34,6 @@ struct DashboardView: View {
         guard !hkManager.stepData.isEmpty else { return 0 }
         let totalSteps = hkManager.stepData.reduce(0) {$0 + $1.value}
         return totalSteps / Double(hkManager.stepData.count)
-//        let totalSteps = HealthMetric.mockData.reduce(0) {$0 + $1.value}
-//        return totalSteps / Double(HealthMetric.mockData.count)
     }
     
     var body: some View {
@@ -83,6 +81,22 @@ struct DashboardView: View {
                             }
                         }
                         .frame(height: 150)
+                        
+                        // bar chart customizations
+                        // https://goshdarnformatstyle.com/numeric-styles/
+                        .chartXAxis {
+                            AxisMarks {
+                                AxisValueLabel(format: .dateTime.month(.defaultDigits).day())
+                            }
+                        }
+                        .chartYAxis {
+                            AxisMarks { value in
+                                AxisGridLine()
+                                    .foregroundStyle(Color.secondary.opacity(0.3))
+                                
+                                AxisValueLabel((value.as(Double.self) ?? 0).formatted(.number.notation(.compactName)))
+                            }
+                        }
                     }
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
