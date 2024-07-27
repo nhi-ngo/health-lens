@@ -15,6 +15,7 @@
 		37B5D6B42C495D9E0029767F /* HealthKitPermissionPrimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6B32C495D9E0029767F /* HealthKitPermissionPrimingView.swift */; };
 		37B5D6B62C496CE40029767F /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6B52C496CE40029767F /* HealthKitManager.swift */; };
 		37DA536D2C4C90DF00BEBF43 /* HealthMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DA536C2C4C90DE00BEBF43 /* HealthMetric.swift */; };
+		37EBEE302C555026007A0C56 /* StepBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EBEE2F2C555026007A0C56 /* StepBarChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		37B5D6B32C495D9E0029767F /* HealthKitPermissionPrimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionPrimingView.swift; sourceTree = "<group>"; };
 		37B5D6B52C496CE40029767F /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		37DA536C2C4C90DE00BEBF43 /* HealthMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMetric.swift; sourceTree = "<group>"; };
+		37EBEE2F2C555026007A0C56 /* StepBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepBarChart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,14 +62,14 @@
 		37B5D6A12C46E5EE0029767F /* HealthLens */ = {
 			isa = PBXGroup;
 			children = (
-				37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */,
-				37B5D6A42C46E5EE0029767F /* DashboardView.swift */,
-				37DA536C2C4C90DE00BEBF43 /* HealthMetric.swift */,
-				37B5D6B12C48427E0029767F /* HealthDataListView.swift */,
-				37B5D6B32C495D9E0029767F /* HealthKitPermissionPrimingView.swift */,
-				37B5D6B52C496CE40029767F /* HealthKitManager.swift */,
-				37B5D6A62C46E5F10029767F /* Assets.xcassets */,
 				37B5D6A82C46E5F10029767F /* HealthLens.entitlements */,
+				37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */,
+				37EBEE352C555953007A0C56 /* Manager */,
+				37EBEE342C55594C007A0C56 /* Model */,
+				37EBEE322C5558F9007A0C56 /* Views */,
+				37EBEE312C5558EB007A0C56 /* Screens */,
+				37EBEE332C555903007A0C56 /* Charts */,
+				37B5D6A62C46E5F10029767F /* Assets.xcassets */,
 				37B5D6A92C46E5F10029767F /* Preview Content */,
 			);
 			path = HealthLens;
@@ -79,6 +81,47 @@
 				37B5D6AA2C46E5F10029767F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		37EBEE312C5558EB007A0C56 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				37B5D6A42C46E5EE0029767F /* DashboardView.swift */,
+				37B5D6B32C495D9E0029767F /* HealthKitPermissionPrimingView.swift */,
+				37B5D6B12C48427E0029767F /* HealthDataListView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		37EBEE322C5558F9007A0C56 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		37EBEE332C555903007A0C56 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				37EBEE2F2C555026007A0C56 /* StepBarChart.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		37EBEE342C55594C007A0C56 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37DA536C2C4C90DE00BEBF43 /* HealthMetric.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		37EBEE352C555953007A0C56 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				37B5D6B52C496CE40029767F /* HealthKitManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +196,7 @@
 			files = (
 				37B5D6B22C48427E0029767F /* HealthDataListView.swift in Sources */,
 				37B5D6A52C46E5EE0029767F /* DashboardView.swift in Sources */,
+				37EBEE302C555026007A0C56 /* StepBarChart.swift in Sources */,
 				37B5D6A32C46E5EE0029767F /* HealthLensApp.swift in Sources */,
 				37B5D6B62C496CE40029767F /* HealthKitManager.swift in Sources */,
 				37B5D6B42C495D9E0029767F /* HealthKitPermissionPrimingView.swift in Sources */,
