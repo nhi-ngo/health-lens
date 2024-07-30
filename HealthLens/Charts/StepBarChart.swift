@@ -22,6 +22,7 @@ struct StepBarChart: View {
         }
     }
     
+    // for the last 28 days. Timeframe comes from addSimulatorData() 
     var avgStepCount: Double {
         guard !chartData.isEmpty else { return 0 }
         let totalSteps = chartData.reduce(0) {$0 + $1.value}
