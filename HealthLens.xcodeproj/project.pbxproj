@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		374CC70A2C59474900B0C831 /* StepPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CC7092C59474900B0C831 /* StepPieChart.swift */; };
 		37B5D6A32C46E5EE0029767F /* HealthLensApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */; };
 		37B5D6A52C46E5EE0029767F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6A42C46E5EE0029767F /* DashboardView.swift */; };
 		37B5D6A72C46E5F10029767F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B5D6A62C46E5F10029767F /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		374CC7092C59474900B0C831 /* StepPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepPieChart.swift; sourceTree = "<group>"; };
 		37B5D69F2C46E5EE0029767F /* HealthLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthLensApp.swift; sourceTree = "<group>"; };
 		37B5D6A42C46E5EE0029767F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				37EBEE2F2C555026007A0C56 /* StepBarChart.swift */,
+				374CC7092C59474900B0C831 /* StepPieChart.swift */,
 				37EBEE362C55924E007A0C56 /* ChartMath.swift */,
 				37EBEE382C559357007A0C56 /* ChartDataTypes.swift */,
 			);
@@ -228,6 +231,7 @@
 				37EBEE372C55924E007A0C56 /* ChartMath.swift in Sources */,
 				37DA536D2C4C90DF00BEBF43 /* HealthMetric.swift in Sources */,
 				37EBEE392C559357007A0C56 /* ChartDataTypes.swift in Sources */,
+				374CC70A2C59474900B0C831 /* StepPieChart.swift in Sources */,
 				37EBEE3C2C559975007A0C56 /* Date+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
