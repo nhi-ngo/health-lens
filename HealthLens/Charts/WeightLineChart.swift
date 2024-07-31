@@ -13,6 +13,10 @@ struct WeightLineChart: View {
     var selectedStat: HealthMetricContext
     var chartData: [HealthMetric]
     
+    var minValue: Double {
+        chartData.map { $0.value }.min() ?? 0
+    }
+    
     var body: some View {
         VStack {
             NavigationLink(value: selectedStat) {
@@ -36,10 +40,11 @@ struct WeightLineChart: View {
             
             Chart {
                 ForEach(chartData) { weight in
-                    AreaMark(x: .value("Date", weight.date, unit: .day),
-                             y: .value("Weight", weight.value)
+                    AreaMark(x: .value("Day", weight.date, unit: .day),
+                             yStart: .value("Value", weight.value),
+                             yEnd: .value("Min value", minValue)
                     )
-                    .foregroundStyle(Gradient(colors: [.indigo, .clear]))
+                    .foregroundStyle(Gradient(colors: [.indigo.opacity(0.5), .clear]))
                     
                     LineMark(x: .value("Date", weight.date, unit: .day),
                              y: .value("Weight", weight.value)
@@ -48,6 +53,7 @@ struct WeightLineChart: View {
                 }
             }
             .frame(height: 150)
+            .chartYScale(domain: .automatic(includesZero: false))
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
