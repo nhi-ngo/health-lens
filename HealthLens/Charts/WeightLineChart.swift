@@ -25,7 +25,7 @@ struct WeightLineChart: View {
             Calendar.current.isDate(rawSelectedDate, inSameDayAs: $0.date)
         }
     }
-    
+
     var body: some View {
         VStack {
             NavigationLink(value: selectedStat) {
