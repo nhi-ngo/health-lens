@@ -26,7 +26,7 @@ struct WeightLineChart: View {
                             .font(.title3.bold())
                             .foregroundStyle(selectedStat.tint)
                         
-                        Text("Avg: 110 lbs")
+                        Text("Avg: 120 lbs")
                             .font(.caption)
                     }
                     
@@ -39,21 +39,33 @@ struct WeightLineChart: View {
             .padding(.bottom, 12)
             
             Chart {
+                RuleMark(y: .value("Goal", 120))
+                    .foregroundStyle(.mint)
+                    .lineStyle(.init(lineWidth: 1, dash: [5]))
+                
                 ForEach(chartData) { weight in
                     AreaMark(x: .value("Day", weight.date, unit: .day),
                              yStart: .value("Value", weight.value),
                              yEnd: .value("Min value", minValue)
                     )
                     .foregroundStyle(Gradient(colors: [.indigo.opacity(0.5), .clear]))
+                    .interpolationMethod(.catmullRom)
                     
                     LineMark(x: .value("Date", weight.date, unit: .day),
                              y: .value("Weight", weight.value)
                     )
-                    .foregroundStyle(Color.indigo.gradient)
+                    .foregroundStyle(.indigo)
+                    .interpolationMethod(.catmullRom)
+                    .symbol(.circle)
                 }
             }
             .frame(height: 150)
             .chartYScale(domain: .automatic(includesZero: false))
+            .chartXAxis {
+                AxisMarks {
+                    AxisValueLabel(format: .dateTime.month(.defaultDigits).day())
+                }
+            }
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
