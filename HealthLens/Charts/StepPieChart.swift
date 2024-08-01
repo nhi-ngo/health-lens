@@ -82,7 +82,6 @@ struct StepPieChart: View {
                 rawSelectedValue = oldValue
             }
         }
-        
     }
 }
 
