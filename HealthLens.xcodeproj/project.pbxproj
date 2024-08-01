@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37158F812C5C1B56000658C7 /* WeightDiffBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37158F802C5C1B56000658C7 /* WeightDiffBarChart.swift */; };
 		374CC70A2C59474900B0C831 /* StepPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CC7092C59474900B0C831 /* StepPieChart.swift */; };
+		374CC70F2C5ACDC200B0C831 /* WeightLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CC70E2C5ACDC200B0C831 /* WeightLineChart.swift */; };
+		374CC7122C5AD0EA00B0C831 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CC7112C5AD0EA00B0C831 /* MockData.swift */; };
 		37B5D6A32C46E5EE0029767F /* HealthLensApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */; };
 		37B5D6A52C46E5EE0029767F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5D6A42C46E5EE0029767F /* DashboardView.swift */; };
 		37B5D6A72C46E5F10029767F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B5D6A62C46E5F10029767F /* Assets.xcassets */; };
@@ -24,7 +27,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37158F802C5C1B56000658C7 /* WeightDiffBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightDiffBarChart.swift; sourceTree = "<group>"; };
 		374CC7092C59474900B0C831 /* StepPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepPieChart.swift; sourceTree = "<group>"; };
+		374CC70E2C5ACDC200B0C831 /* WeightLineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightLineChart.swift; sourceTree = "<group>"; };
+		374CC7112C5AD0EA00B0C831 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		37B5D69F2C46E5EE0029767F /* HealthLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthLensApp.swift; sourceTree = "<group>"; };
 		37B5D6A42C46E5EE0029767F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -53,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		374CC7102C5AD0B700B0C831 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				374CC7112C5AD0EA00B0C831 /* MockData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		37B5D6962C46E5EE0029767F = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +88,7 @@
 			children = (
 				37B5D6A82C46E5F10029767F /* HealthLens.entitlements */,
 				37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */,
+				374CC7102C5AD0B700B0C831 /* Data */,
 				37EBEE3A2C5593E8007A0C56 /* Extensions */,
 				37EBEE352C555953007A0C56 /* Manager */,
 				37EBEE342C55594C007A0C56 /* Model */,
@@ -116,6 +131,8 @@
 			children = (
 				37EBEE2F2C555026007A0C56 /* StepBarChart.swift */,
 				374CC7092C59474900B0C831 /* StepPieChart.swift */,
+				374CC70E2C5ACDC200B0C831 /* WeightLineChart.swift */,
+				37158F802C5C1B56000658C7 /* WeightDiffBarChart.swift */,
 				37EBEE362C55924E007A0C56 /* ChartMath.swift */,
 				37EBEE382C559357007A0C56 /* ChartDataTypes.swift */,
 			);
@@ -222,8 +239,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374CC70F2C5ACDC200B0C831 /* WeightLineChart.swift in Sources */,
 				37B5D6B22C48427E0029767F /* HealthDataListView.swift in Sources */,
+				37158F812C5C1B56000658C7 /* WeightDiffBarChart.swift in Sources */,
 				37B5D6A52C46E5EE0029767F /* DashboardView.swift in Sources */,
+				374CC7122C5AD0EA00B0C831 /* MockData.swift in Sources */,
 				37EBEE302C555026007A0C56 /* StepBarChart.swift in Sources */,
 				37B5D6A32C46E5EE0029767F /* HealthLensApp.swift in Sources */,
 				37B5D6B62C496CE40029767F /* HealthKitManager.swift in Sources */,

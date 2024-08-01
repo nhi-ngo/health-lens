@@ -82,10 +82,9 @@ struct StepPieChart: View {
                 rawSelectedValue = oldValue
             }
         }
-        
     }
 }
 
 #Preview {
-    StepPieChart(chartData: ChartMath.averageWeekdayCount(for: HealthMetric.mockData))
+    StepPieChart(chartData: ChartMath.averageWeekdayCount(for: MockData.steps))
 }
