@@ -81,7 +81,7 @@ import Observation
     }
     
     // fetch extra day to account for first day of the current week and the last day of last week
-    func fetchWeightsForDiffentials() async {
+    func fetchWeightsForDifferentials() async {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: .now)
         let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
@@ -110,6 +110,28 @@ import Observation
          print(weight.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
          }
          */
+    }
+    
+    func addStepData(for date: Date, value: Double) async {
+        let stepQuantity = HKQuantity(unit: .count(), doubleValue: value)
+        let stepSample = HKQuantitySample(type: HKQuantityType(.stepCount), quantity: stepQuantity, start: date, end: date)
+        
+        do {
+            try await store.save(stepSample)
+        } catch {
+            
+        }
+    }
+    
+    func addWeightData(for date: Date, value: Double) async {
+        let weightQuantity = HKQuantity(unit: .pound(), doubleValue: value)
+        let weightSample = HKQuantitySample(type: HKQuantityType(.bodyMass), quantity: weightQuantity, start: date, end: date)
+        
+        do {
+            try await store.save(weightSample)
+        } catch {
+            
+        }
     }
     
     /*
