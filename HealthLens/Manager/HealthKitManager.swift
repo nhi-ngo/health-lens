@@ -19,7 +19,7 @@ enum HealthLensError: LocalizedError {
         switch self {
         case .authNotDetermined:
             "Need Access to Health Data"
-        case .sharingDenied(let quantityType):
+        case .sharingDenied(_):
             "No Write Access"
         case .noData:
             "No Data"
