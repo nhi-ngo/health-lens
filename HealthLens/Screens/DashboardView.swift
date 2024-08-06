@@ -26,7 +26,6 @@ enum HealthMetricContext: String, CaseIterable, Identifiable {
 struct DashboardView: View {
     
     @Environment(HealthKitManager.self) private var hkManager
-    @AppStorage("hasSeenPermissionPriming") private var hasSeenPermissionPriming = false
     @State private var isShowingPermissionPrimingSheet = false
     @State private var selectedStat: HealthMetricContext = .steps
     @State private var rawSelectedDate: Date?
@@ -35,7 +34,6 @@ struct DashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    
                     Picker("Selected Stat", selection: $selectedStat) {
                         ForEach(HealthMetricContext.allCases) {
                             Text($0.rawValue.capitalized)
@@ -51,16 +49,21 @@ struct DashboardView: View {
                         WeightLineChart(selectedStat: selectedStat, chartData: hkManager.weightData)
                         WeightDiffBarChart(chartData: ChartMath.averageDailyWeightDiff(for: hkManager.weightDiffData))
                     }
-                    
-                    
                 }
             }
             .padding()
             .task {
-                await hkManager.fetchStepCount()
-                await hkManager.fetchWeights()
-                await hkManager.fetchWeightsForDifferentials()    
-                isShowingPermissionPrimingSheet = !hasSeenPermissionPriming
+                do {
+                    try await hkManager.fetchStepCount()
+                    try await hkManager.fetchWeights()
+                    try await hkManager.fetchWeightsForDifferentials()
+                } catch HealthLensError.authNotDetermined {
+                    isShowingPermissionPrimingSheet = true
+                } catch HealthLensError.noData {
+                    print("❌ No data error")
+                } catch {
+                    print("❌ Unable to complete request")
+                }
             }
             .navigationTitle("Dashboard")
             .navigationDestination(for: HealthMetricContext.self) { metric in
@@ -69,7 +72,7 @@ struct DashboardView: View {
             .fullScreenCover(isPresented: $isShowingPermissionPrimingSheet, onDismiss: {
                 // fetch health data
             }, content: {
-                HealthKitPermissionPrimingView(hasSeen: $hasSeenPermissionPriming)
+                HealthKitPermissionPrimingView()
             })
         }
         .tint(selectedStat.tint)

@@ -13,7 +13,7 @@ struct HealthDataListView: View {
     @State private var isShowingAddData = false
     @State private var addedDate: Date = .now
     @State private var addedValue: String = ""
-    
+        
     var metric: HealthMetricContext
     
     var listData: [HealthMetric] {
@@ -68,14 +68,26 @@ struct HealthDataListView: View {
                     Button("Add Data") {
                         Task {
                             if metric == .steps {
-                                await hkManager.addStepData(for: addedDate, value: Double(addedValue)!)
-                                await hkManager.fetchStepCount()
-                                isShowingAddData = false
+                                do {
+                                    try await hkManager.addStepData(for: addedDate, value: Double(addedValue)!)
+                                    try await hkManager.fetchStepCount()
+                                    isShowingAddData = false
+                                } catch HealthLensError.sharingDenied(let quantityType) {
+                                    print("❌ Sharing denied for \(quantityType)")
+                                } catch {
+                                    print("❌ HealthDataListView unable to complete request")
+                                }
                             } else {
-                                await hkManager.addWeightData(for: addedDate, value: Double(addedValue)!)
-                                await hkManager.fetchWeights()
-                                await hkManager.fetchWeightsForDifferentials()
-                                isShowingAddData = false
+                                do {
+                                    try await hkManager.addWeightData(for: addedDate, value: Double(addedValue)!)
+                                    try await hkManager.fetchWeights()
+                                    try await hkManager.fetchWeightsForDifferentials()
+                                    isShowingAddData = false
+                                } catch HealthLensError.sharingDenied(let quantityType) {
+                                    print("❌ Sharing denied for \(quantityType)")
+                                } catch {
+                                    print("❌ HealthDataListView unable to complete request")
+                                }
                             }
                         }
                     }
