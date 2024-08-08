@@ -62,7 +62,7 @@ struct HealthDataListView: View {
             .navigationTitle(metric.rawValue.capitalized)
             .alert(isPresented: $isShowingAlert, error: writeError) { writeError in
                 switch writeError {
-                case .authNotDetermined, .noData, .unableToCompleteRequest:
+                case .authNotDetermined, .noData, .unableToCompleteRequest, .invalidValue:
                     EmptyView()
                 case .sharingDenied(_):
                     Button("Settings") {
@@ -83,10 +83,16 @@ struct HealthDataListView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Data") {
+                        guard let value = Double(addedValue) else {
+                            writeError = .invalidValue
+                            isShowingAlert = true
+                            addedValue = ""
+                            return
+                        }
                         Task {
                             if metric == .steps {
                                 do {
-                                    try await hkManager.addStepData(for: addedDate, value: Double(addedValue)!)
+                                    try await hkManager.addStepData(for: addedDate, value: value)
                                     try await hkManager.fetchStepCount()
                                     isShowingAddData = false
                                 } catch HealthLensError.sharingDenied(let quantityType) {
@@ -98,7 +104,7 @@ struct HealthDataListView: View {
                                 }
                             } else {
                                 do {
-                                    try await hkManager.addWeightData(for: addedDate, value: Double(addedValue)!)
+                                    try await hkManager.addWeightData(for: addedDate, value: value)
                                     try await hkManager.fetchWeights()
                                     try await hkManager.fetchWeightsForDifferentials()
                                     isShowingAddData = false
