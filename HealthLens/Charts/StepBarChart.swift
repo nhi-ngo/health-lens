@@ -51,44 +51,50 @@ struct StepBarChart: View {
             .foregroundStyle(.secondary)
             .padding(.bottom, 12)
             
-            Chart {
-                if let selectedHealthMetric {
-                    RuleMark(x: .value("Selected metric", selectedHealthMetric.date, unit: .day))
-                        .foregroundStyle(Color.secondary.opacity(0.3))
-                        .offset(y: -10)
-                        .annotation(position: .top,
-                                    spacing: 0,
-                                    overflowResolution: .init(x: .fit(to: .chart), y: .disabled)) { annotationView }
-                }
-                
-                RuleMark(y: .value("Average", avgStepCount))
-                    .foregroundStyle(Color.secondary)
-                    .lineStyle(.init(lineWidth: 1, dash: [5]))
-                
-                ForEach(chartData) { step in
-                    BarMark(x: .value("Date", step.date, unit: .day),
-                            y: .value("Steps", step.value)
-                    )
-                    .foregroundStyle(Color.pink.gradient)
-                    .opacity(rawSelectedDate == nil || step.date == selectedHealthMetric?.date ? 1.0 : 0.3)
-                }
-            }
-            .frame(height: 150)
-            
-            // bar chart customizations
-            // https://goshdarnformatstyle.com/numeric-styles/
-            .chartXSelection(value: $rawSelectedDate.animation(.easeInOut)) // track where user is dragging along the chart
-            .chartXAxis {
-                AxisMarks {
-                    AxisValueLabel(format: .dateTime.month(.defaultDigits).day())
-                }
-            }
-            .chartYAxis {
-                AxisMarks { value in
-                    AxisGridLine()
-                        .foregroundStyle(Color.secondary.opacity(0.3))
+            if chartData.isEmpty {
+                ChartEmptyView(systemImageName: "chart.bar",
+                               title: "No Data",
+                               description: "There is no step count data from the Health App.")
+            } else {
+                Chart {
+                    if let selectedHealthMetric {
+                        RuleMark(x: .value("Selected metric", selectedHealthMetric.date, unit: .day))
+                            .foregroundStyle(Color.secondary.opacity(0.3))
+                            .offset(y: -10)
+                            .annotation(position: .top,
+                                        spacing: 0,
+                                        overflowResolution: .init(x: .fit(to: .chart), y: .disabled)) { annotationView }
+                    }
                     
-                    AxisValueLabel((value.as(Double.self) ?? 0).formatted(.number.notation(.compactName)))
+                    RuleMark(y: .value("Average", avgStepCount))
+                        .foregroundStyle(Color.secondary)
+                        .lineStyle(.init(lineWidth: 1, dash: [5]))
+                    
+                    ForEach(chartData) { step in
+                        BarMark(x: .value("Date", step.date, unit: .day),
+                                y: .value("Steps", step.value)
+                        )
+                        .foregroundStyle(Color.pink.gradient)
+                        .opacity(rawSelectedDate == nil || step.date == selectedHealthMetric?.date ? 1.0 : 0.3)
+                    }
+                }
+                .frame(height: 150)
+                
+                // bar chart customizations
+                // https://goshdarnformatstyle.com/numeric-styles/
+                .chartXSelection(value: $rawSelectedDate.animation(.easeInOut)) // track where user is dragging along the chart
+                .chartXAxis {
+                    AxisMarks {
+                        AxisValueLabel(format: .dateTime.month(.defaultDigits).day())
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks { value in
+                        AxisGridLine()
+                            .foregroundStyle(Color.secondary.opacity(0.3))
+                        
+                        AxisValueLabel((value.as(Double.self) ?? 0).formatted(.number.notation(.compactName)))
+                    }
                 }
             }
         }
@@ -123,5 +129,5 @@ struct StepBarChart: View {
 
 #Preview {
     StepBarChart(selectedStat: .steps,
-                 chartData: MockData.steps)
+                 chartData: [])
 }
