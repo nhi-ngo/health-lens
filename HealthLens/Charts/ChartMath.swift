@@ -47,6 +47,8 @@ struct ChartMath {
         var diffValues: [(date: Date, value: Double)] = []
         var weekdayChartData: [WeekdayChartData] = []
         
+        guard weights.count > 1 else { return [] }
+        
         for i in 1..<weights.count {
             
             let date = weights[i].date

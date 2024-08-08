@@ -9,24 +9,31 @@ import SwiftUI
 
 struct HealthDataListView: View {
     
+    @Environment(HealthKitManager.self) private var hkManager
     @State private var isShowingAddData = false
-    @State private var addDataDate: Date = .now
-    @State private var valueToAdd: String = ""
-    
+    @State private var isShowingAlert = false
+    @State private var writeError: HealthLensError = .noData
+    @State private var addedDate: Date = .now
+    @State private var addedValue: String = ""
+
     var metric: HealthMetricContext
     
+    var listData: [HealthMetric] {
+        metric == .steps ? hkManager.stepData : hkManager.weightData
+    }
+    
     var body: some View {
-        List(0..<28) { i in
+        List(listData.reversed()) { data in
 //            HStack {
 //                Text(Date(), format: .dateTime.month().day().year())
 //                Spacer()
 //                Text(10000, format: .number.precision(.fractionLength(metric == .steps ? 0 : 1)))
 //            }
             LabeledContent {
-                Text(10000, format: .number.precision(.fractionLength(metric == .steps ? 0 : 1)))
+                Text(data.value, format: .number.precision(.fractionLength(metric == .steps ? 0 : 1)))
                     .foregroundStyle(.primary)
             } label: {
-                Text(Date(), format: .dateTime.month().day().year())
+                Text(data.date, format: .dateTime.month().day().year())
             }
 
         }
@@ -44,15 +51,30 @@ struct HealthDataListView: View {
     var addDataView: some View {
         NavigationStack {
             Form {
-                DatePicker("Date", selection: $addDataDate, displayedComponents: .date)
+                DatePicker("Date", selection: $addedDate, displayedComponents: .date)
                 LabeledContent(metric.rawValue.capitalized) {
-                    TextField("Value", text: $valueToAdd)
+                    TextField("Value", text: $addedValue)
                         .multilineTextAlignment(.trailing)
                         .frame(width: 50)
                         .keyboardType(metric == .steps ? .numberPad : .decimalPad)
                 }
             }
             .navigationTitle(metric.rawValue.capitalized)
+            .alert(isPresented: $isShowingAlert, error: writeError) { writeError in
+                switch writeError {
+                case .authNotDetermined, .noData, .unableToCompleteRequest, .invalidValue:
+                    EmptyView()
+                case .sharingDenied(_):
+                    Button("Settings") {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                    }
+                    Button("Cancel", role: .cancel) {
+                        // OK button to dismiss
+                    }
+                }
+            } message: { writeError in
+                Text(writeError.failureReason)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Dismiss") {
@@ -61,7 +83,40 @@ struct HealthDataListView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Data") {
-                        
+                        guard let value = Double(addedValue) else {
+                            writeError = .invalidValue
+                            isShowingAlert = true
+                            addedValue = ""
+                            return
+                        }
+                        Task {
+                            if metric == .steps {
+                                do {
+                                    try await hkManager.addStepData(for: addedDate, value: value)
+                                    try await hkManager.fetchStepCount()
+                                    isShowingAddData = false
+                                } catch HealthLensError.sharingDenied(let quantityType) {
+                                    writeError = .sharingDenied(quantityType: quantityType)
+                                    isShowingAlert = true
+                                } catch {
+                                    writeError = .unableToCompleteRequest
+                                    isShowingAlert = true
+                                }
+                            } else {
+                                do {
+                                    try await hkManager.addWeightData(for: addedDate, value: value)
+                                    try await hkManager.fetchWeights()
+                                    try await hkManager.fetchWeightsForDifferentials()
+                                    isShowingAddData = false
+                                } catch HealthLensError.sharingDenied(let quantityType) {
+                                    writeError = .sharingDenied(quantityType: quantityType)
+                                    isShowingAlert = true
+                                } catch {
+                                    writeError = .unableToCompleteRequest
+                                    isShowingAlert = true
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -72,5 +127,6 @@ struct HealthDataListView: View {
 #Preview {
     NavigationStack {
         HealthDataListView(metric: .weight)
+            .environment(HealthKitManager())
     }
 }
