@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,11 +27,22 @@
 		37EBEE3F2C566EE2007A0C56 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 37EBEE3E2C566EE2007A0C56 /* Algorithms */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		376BCEFC2D88658B0038D6BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37B5D6972C46E5EE0029767F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37B5D69E2C46E5EE0029767F;
+			remoteInfo = HealthLens;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		37158F802C5C1B56000658C7 /* WeightDiffBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightDiffBarChart.swift; sourceTree = "<group>"; };
 		374CC7092C59474900B0C831 /* StepPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepPieChart.swift; sourceTree = "<group>"; };
 		374CC70E2C5ACDC200B0C831 /* WeightLineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightLineChart.swift; sourceTree = "<group>"; };
 		374CC7112C5AD0EA00B0C831 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		376BCEF82D88658B0038D6BA /* HealthLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HealthLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B5D69F2C46E5EE0029767F /* HealthLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B5D6A22C46E5EE0029767F /* HealthLensApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthLensApp.swift; sourceTree = "<group>"; };
 		37B5D6A42C46E5EE0029767F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -49,7 +60,18 @@
 		37EBEE3B2C559975007A0C56 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		376BCEF92D88658B0038D6BA /* HealthLensTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HealthLensTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		376BCEF52D88658B0038D6BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		37B5D69C2C46E5EE0029767F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -73,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				37B5D6A12C46E5EE0029767F /* HealthLens */,
+				376BCEF92D88658B0038D6BA /* HealthLensTests */,
 				37B5D6A02C46E5EE0029767F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				37B5D69F2C46E5EE0029767F /* HealthLens.app */,
+				376BCEF82D88658B0038D6BA /* HealthLensTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,6 +185,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		376BCEF72D88658B0038D6BA /* HealthLensTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 376BCEFE2D88658B0038D6BA /* Build configuration list for PBXNativeTarget "HealthLensTests" */;
+			buildPhases = (
+				376BCEF42D88658B0038D6BA /* Sources */,
+				376BCEF52D88658B0038D6BA /* Frameworks */,
+				376BCEF62D88658B0038D6BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				376BCEFD2D88658B0038D6BA /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				376BCEF92D88658B0038D6BA /* HealthLensTests */,
+			);
+			name = HealthLensTests;
+			packageProductDependencies = (
+			);
+			productName = HealthLensTests;
+			productReference = 376BCEF82D88658B0038D6BA /* HealthLensTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		37B5D69E2C46E5EE0029767F /* HealthLens */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 37B5D6AE2C46E5F10029767F /* Build configuration list for PBXNativeTarget "HealthLens" */;
@@ -188,9 +235,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					376BCEF72D88658B0038D6BA = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 37B5D69E2C46E5EE0029767F;
+					};
 					37B5D69E2C46E5EE0029767F = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -213,11 +264,19 @@
 			projectRoot = "";
 			targets = (
 				37B5D69E2C46E5EE0029767F /* HealthLens */,
+				376BCEF72D88658B0038D6BA /* HealthLensTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		376BCEF62D88658B0038D6BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		37B5D69D2C46E5EE0029767F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -230,6 +289,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		376BCEF42D88658B0038D6BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		37B5D69B2C46E5EE0029767F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,7 +320,56 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		376BCEFD2D88658B0038D6BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37B5D69E2C46E5EE0029767F /* HealthLens */;
+			targetProxy = 376BCEFC2D88658B0038D6BA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		376BCEFF2D88658B0038D6BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3L8C7P2DCH;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhi.HealthLensTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HealthLens.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HealthLens";
+			};
+			name = Debug;
+		};
+		376BCF002D88658B0038D6BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3L8C7P2DCH;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhi.HealthLensTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HealthLens.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HealthLens";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		37B5D6AC2C46E5F10029767F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -313,6 +428,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -366,6 +482,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -452,6 +569,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		376BCEFE2D88658B0038D6BA /* Build configuration list for PBXNativeTarget "HealthLensTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				376BCEFF2D88658B0038D6BA /* Debug */,
+				376BCF002D88658B0038D6BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		37B5D69A2C46E5EE0029767F /* Build configuration list for PBXProject "HealthLens" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

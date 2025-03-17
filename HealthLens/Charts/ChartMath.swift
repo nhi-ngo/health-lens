@@ -11,7 +11,7 @@ import Algorithms
 struct ChartMath {
     
     static func averageWeekdayCount(for metric: [HealthMetric]) -> [WeekdayChartData] {
-        let sortedByWeekday = metric.sorted { $0.date.weekdayInt < $1.date.weekdayInt } //date extension
+        let sortedByWeekday = metric.sorted(using: KeyPathComparator(\.date.weekdayInt))
         let weekdayArray = sortedByWeekday.chunked { $0.date.weekdayInt == $1.date.weekdayInt }
         //[HealthMetric(id: 588E1865-5B28-4EC5-B50C-717A7595A5D0, date: 2024-07-07 04:00:00 +0000, value: 7099.160007909138),(),()...]
         

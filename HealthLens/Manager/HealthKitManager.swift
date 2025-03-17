@@ -187,9 +187,7 @@ enum HealthLensError: LocalizedError {
         do {
             try await store.save(mockSamples)
             print("✅ Dummy data sent up")
-            
         } catch {
-            
         }
     }
     */
