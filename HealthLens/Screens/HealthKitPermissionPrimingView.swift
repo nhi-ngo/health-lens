@@ -51,7 +51,6 @@ struct HealthKitPermissionPrimingView: View {
             case .success(_):
                 dismiss()
             case .failure(_):
-                // handle the error later
                 dismiss()
             }
         }

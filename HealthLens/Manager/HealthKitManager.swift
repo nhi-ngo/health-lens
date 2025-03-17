@@ -56,28 +56,24 @@ enum HealthLensError: LocalizedError {
     var weightData: [HealthMetric] = []
     var weightDiffData: [HealthMetric] = []
     
-    func fetchStepCount() async throws {
+    func fetchStepCount() async throws -> [HealthMetric] {
         guard store.authorizationStatus(for: HKQuantityType(.stepCount)) != .notDetermined else {
             throw HealthLensError.authNotDetermined
         }
         
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: .now)
-        let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
-        let startDate = calendar.date(byAdding: .day, value: -28, to: endDate)!
-        
-        let queryPredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+        let interval = createDateInterval(from: .now, daysBack: 28)
+        let queryPredicate = HKQuery.predicateForSamples(withStart: interval.start, end: interval.end)
         let samplePredicate = HKSamplePredicate.quantitySample(type: HKQuantityType(.stepCount), predicate: queryPredicate)
         let stepsQuery = HKStatisticsCollectionQueryDescriptor(
             predicate: samplePredicate,
             options: .cumulativeSum,
-            anchorDate: endDate,
+            anchorDate: interval.end,
             intervalComponents: .init(day: 1)
         )
         
         do {
             let stepCounts = try await stepsQuery.result(for: store)
-            stepData = stepCounts.statistics().map {
+            return stepCounts.statistics().map {
                 .init(date: $0.startDate, value: $0.sumQuantity()?.doubleValue(for: .count()) ?? 0)
             }
         } catch HKError.errorNoData {
@@ -85,36 +81,26 @@ enum HealthLensError: LocalizedError {
         } catch {
             throw HealthLensError.unableToCompleteRequest
         }
-        
-        /*
-         for step in stepCounts.statistics() {
-         print(step.sumQuantity() ?? 0)
-         }
-         */
     }
     
-    func fetchWeights() async throws {
+    func fetchWeights(daysBack: Int) async throws -> [HealthMetric] {
         guard store.authorizationStatus(for: HKQuantityType(.bodyMass)) != .notDetermined else {
             throw HealthLensError.authNotDetermined
         }
-        
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: .now)
-        let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
-        let startDate = calendar.date(byAdding: .day, value: -28, to: endDate)!
-        
-        let queryPredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+    
+        let interval = createDateInterval(from: .now, daysBack: daysBack)
+        let queryPredicate = HKQuery.predicateForSamples(withStart: interval.start, end: interval.end)
         let samplePredicate = HKSamplePredicate.quantitySample(type: HKQuantityType(.bodyMass), predicate: queryPredicate)
         let weightsQuery = HKStatisticsCollectionQueryDescriptor(
             predicate: samplePredicate,
             options: .mostRecent,
-            anchorDate: endDate,
+            anchorDate: interval.end,
             intervalComponents: .init(day: 1)
         )
         
         do {
             let weights = try await weightsQuery.result(for: store)
-            weightData = weights.statistics().map {
+            return weights.statistics().map {
                 .init(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
             }
         } catch HKError.errorNoData {
@@ -122,50 +108,6 @@ enum HealthLensError: LocalizedError {
         } catch {
             throw HealthLensError.unableToCompleteRequest
         }
-        
-        /*
-         for weight in weights.statistics() {
-         print(weight.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
-         }
-         */
-    }
-    
-    // fetch extra day to account for first day of the current week and the last day of last week
-    func fetchWeightsForDifferentials() async throws {
-        guard store.authorizationStatus(for: HKQuantityType(.bodyMass)) != .notDetermined else {
-            throw HealthLensError.authNotDetermined
-        }
-        
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: .now)
-        let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
-        let startDate = calendar.date(byAdding: .day, value: -29, to: endDate)!
-        
-        let queryPredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
-        let samplePredicate = HKSamplePredicate.quantitySample(type: HKQuantityType(.bodyMass), predicate: queryPredicate)
-        let weightsQuery = HKStatisticsCollectionQueryDescriptor(
-            predicate: samplePredicate,
-            options: .mostRecent,
-            anchorDate: endDate,
-            intervalComponents: .init(day: 1)
-        )
-        
-        do {
-            let weights = try await weightsQuery.result(for: store)
-            weightDiffData = weights.statistics().map {
-                .init(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
-            }
-        } catch HKError.errorNoData {
-            throw HealthLensError.noData
-        } catch {
-            throw HealthLensError.unableToCompleteRequest
-        }
-        
-        /*
-         for weight in weights.statistics() {
-         print(weight.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
-         }
-         */
     }
     
     func addStepData(for date: Date, value: Double) async throws {
@@ -214,6 +156,14 @@ enum HealthLensError: LocalizedError {
         } catch {
             throw HealthLensError.unableToCompleteRequest
         }
+    }
+    
+    private func createDateInterval(from date: Date, daysBack: Int) -> DateInterval {
+        let calendar = Calendar.current
+        let startOfEndDate = calendar.startOfDay(for: date)
+        let endDate = calendar.date(byAdding: .day, value: 1, to: startOfEndDate)!
+        let startDate = calendar.date(byAdding: .day, value: -daysBack, to: endDate)!
+        return .init(start: startDate, end: endDate)
     }
     
     /*
