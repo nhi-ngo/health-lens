@@ -24,11 +24,6 @@ struct HealthDataListView: View {
     
     var body: some View {
         List(listData.reversed()) { data in
-//            HStack {
-//                Text(Date(), format: .dateTime.month().day().year())
-//                Spacer()
-//                Text(10000, format: .number.precision(.fractionLength(metric == .steps ? 0 : 1)))
-//            }
             LabeledContent {
                 Text(data.value, format: .number.precision(.fractionLength(metric == .steps ? 0 : 1)))
                     .foregroundStyle(.primary)
@@ -60,6 +55,7 @@ struct HealthDataListView: View {
                 }
             }
             .navigationTitle(metric.rawValue.capitalized)
+            .navigationBarTitleDisplayMode(.inline)
             .alert(isPresented: $isShowingAlert, error: writeError) { writeError in
                 switch writeError {
                 case .authNotDetermined, .noData, .unableToCompleteRequest, .invalidValue:
@@ -76,52 +72,52 @@ struct HealthDataListView: View {
                 Text(writeError.failureReason)
             }
             .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Add Data") {
+                        addDataToHealthKit()
+                    }
+                }
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Dismiss") {
                         isShowingAddData = false
                     }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add Data") {
-                        guard let value = Double(addedValue) else {
-                            writeError = .invalidValue
-                            isShowingAlert = true
-                            addedValue = ""
-                            return
-                        }
-                        Task {
-                            if metric == .steps {
-                                do {
-                                    try await hkManager.addStepData(for: addedDate, value: value)
-                                    try await hkManager.fetchStepCount()
-                                    isShowingAddData = false
-                                } catch HealthLensError.sharingDenied(let quantityType) {
-                                    writeError = .sharingDenied(quantityType: quantityType)
-                                    isShowingAlert = true
-                                } catch {
-                                    writeError = .unableToCompleteRequest
-                                    isShowingAlert = true
-                                }
-                            } else {
-                                do {
-                                    try await hkManager.addWeightData(for: addedDate, value: value)
-                                    try await hkManager.fetchWeights()
-                                    try await hkManager.fetchWeightsForDifferentials()
-                                    isShowingAddData = false
-                                } catch HealthLensError.sharingDenied(let quantityType) {
-                                    writeError = .sharingDenied(quantityType: quantityType)
-                                    isShowingAlert = true
-                                } catch {
-                                    writeError = .unableToCompleteRequest
-                                    isShowingAlert = true
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
     }
+    
+    private func addDataToHealthKit() {
+        guard let value = Double(addedValue) else {
+            writeError = .invalidValue
+            isShowingAlert = true
+            addedValue = ""
+            return
+        }
+        Task {
+            do {
+                if metric == .steps {
+                    try await hkManager.addStepData(for: addedDate, value: value)
+                    hkManager.stepData = try await hkManager.fetchStepCount()
+                } else {
+                    try await hkManager.addWeightData(for: addedDate, value: value)
+
+                    async let weightsForLineChart = hkManager.fetchWeights(daysBack: 28)
+                    async let weightsForDiffBarChart = hkManager.fetchWeights(daysBack: 29)
+                    
+                    hkManager.weightData = try await weightsForLineChart
+                    hkManager.weightDiffData = try await weightsForDiffBarChart
+                }
+                isShowingAddData = false
+            } catch HealthLensError.sharingDenied(let quantityType) {
+                writeError = .sharingDenied(quantityType: quantityType)
+                isShowingAlert = true
+            } catch {
+                writeError = .unableToCompleteRequest
+                isShowingAlert = true
+            }
+        }
+    }
+    
 }
 
 #Preview {
