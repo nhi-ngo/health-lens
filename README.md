@@ -3,6 +3,8 @@ Health Lens integrates Apple Health to show your latest step and weight data in 
 
 Health Lens also allows you to upload new step or weight data to the Apple Health app.
 
+![appScreens](HealthLens/Resources/healthlensesscreens.png)
+
 # Technologies Used
 * SwiftUI
 * HealthKit
