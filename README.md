@@ -9,8 +9,6 @@ Health Lens also allows you to upload new step or weight data to the Apple Healt
 * Swift Charts
 * Swift Algorithms
 
-# Animated Swift Charts
-TBD
 
 # Completeness
 * Error handling & alerts
